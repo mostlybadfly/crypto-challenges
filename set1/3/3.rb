@@ -15,3 +15,7 @@ end
 def decode_singlexor(str, key)
   [str].pack('H*').bytes.map {|x| (x ^ key).chr }.join
 end
+
+#decode_singlexor("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736",
+#                 find_key("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736"))
+# => "Cooking MC's like a pound of bacon"

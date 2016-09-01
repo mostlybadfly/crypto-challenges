@@ -55,14 +55,14 @@ class Crypto
       p "XOR'd char: #{top[0].to_s}|string: #{top[1]}|score: #{top[2]}"
     end
   end
-#Set 1 > Challenge 5
+#moved
   def self.repeated_xor(string, key)
    string = string.bytes
    key = key.bytes
    zipped = string.zip(key.cycle)
    p zipped.map { |x, y| sprintf("%02x", (x ^ y)) }.join
   end
-
+#moved
   def self.hamming(str1, str2)
     result = []
     str1.bytes.zip(str2.bytes) do |n1, n2|
@@ -79,7 +79,7 @@ class Crypto
     chunks = str.bytes.each_slice(keysize).map { |piece| piece.map(&:chr).join }
     chunks.delete_if { |x| x.length < keysize }
   end
-# Need to decode64 somewhere here
+  
   def self.rank_keysize(input, keysize)
     dist = []
     chunks = chunkify(input, keysize)
@@ -96,7 +96,7 @@ class Crypto
     end
     guesses.min_by { |guess, score| score }.first
   end
-# Create a method to run single xor on these bas64 string
+  
   def self.get_key(keysize)
     chunks = chunkify(parse('6.txt'), keysize)
     chunks = chunks.map(&:bytes).transpose
@@ -119,14 +119,14 @@ class Crypto
       top[0]
     end
   end
-# set 1 challenge 7
+#moved  
   def self.aes_in_ecb(data, key)
     decipher = OpenSSL::Cipher::AES.new(128, :ECB)
     decipher.decrypt
     decipher.key = key
     decipher.update(data) + decipher.final
   end
-
+#moved
   def self.detect_aes(data)
     data = File.open(data).read.split("\n")
     data.each do |x|
@@ -134,6 +134,7 @@ class Crypto
       puts x if group.size > group.uniq.size
     end
   end
+  #Set 2: Challenge 9
   # idea for a way to get the padding for each group, needs to be done with variables.
   # taking the `goal` minus current length. N bytes short, padding N times
   def self.pad(message, block_length)
